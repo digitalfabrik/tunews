@@ -12,7 +12,7 @@ class NewsCategory(models.Model):
     name = models.CharField("Kategorie", max_length=200)
 
     def __str__(self):
-        return self.newscategory
+        return self.name
 
     # pylint: disable=C0111
     class Meta:

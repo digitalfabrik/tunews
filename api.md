@@ -47,7 +47,7 @@ https://tunews.integreat-app.de/v1/news/{languageCode}
 #### Response
 ```
 [{
-    id: string,
+    id: integer,
     title: string,
     categories: [Category],
     date: string
@@ -69,9 +69,10 @@ https://tunews.integreat-app.de/v1/news/{id}
 {
     id: string,
     title: string,
-    categories: [Category],
+    categories: [tags],
     date: string,
     content: string
+    enewsno: string
 }
 ```
 #### To discuss
