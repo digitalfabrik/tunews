@@ -19,7 +19,7 @@ https://tunews.integreat-app.de/v1/news/languages
 #### Method
 GET
 #### URL
-https://tunews.integreat-app.de/v1/news/categories
+  https://tunews.integreat-app.de/v1/news/tags
 #### Response
 ```
 [{
@@ -28,7 +28,6 @@ https://tunews.integreat-app.de/v1/news/categories
 }]
 ```
 #### To discuss
-- Term `label`/`tag` instead of `category`
 - `code` instead of `id`, probably not available
 - Name without the leading number, e.g. `Landkreis Tübingen und Europa` intead of `0 Landkreis Tübingen und Europa`
 
@@ -36,10 +35,10 @@ https://tunews.integreat-app.de/v1/news/categories
 #### Method
 GET
 #### URL
-https://tunews.integreat-app.de/v1/news/{languageCode}
+https://tunews.integreat-app.de/v1/news/{languageCode}?page=N&count=M
 #### Query parameters
 - Filter:
-    - `category`: Category id
+    - `tag`: tag id
 - Search: `search`: Search query
 - Pagination:
     - `count`: Number of items to return
@@ -49,7 +48,7 @@ https://tunews.integreat-app.de/v1/news/{languageCode}
 [{
     id: integer,
     title: string,
-    categories: [Category],
+    tags: [Category],
     date: string
 }]
 ```
@@ -69,7 +68,7 @@ https://tunews.integreat-app.de/v1/news/{id}
 {
     id: string,
     title: string,
-    categories: [tags],
+    tags: [tags],
     date: string,
     content: string
     enewsno: string
