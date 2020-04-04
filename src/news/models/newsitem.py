@@ -24,4 +24,4 @@ class NewsItem(models.Model):
     class Meta:
         verbose_name = 'Nachricht'
         verbose_name_plural = 'Nachrichten'
-        ordering = ('-enewsno')
+        ordering = ['-enewsno']

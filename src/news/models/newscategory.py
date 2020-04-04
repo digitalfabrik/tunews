@@ -9,7 +9,7 @@ class NewsCategory(models.Model):
     """
     News categories
     """
-    newscategory = models.CharField("Kategorie", max_length=200)
+    name = models.CharField("Kategorie", max_length=200)
 
     def __str__(self):
         return self.newscategory

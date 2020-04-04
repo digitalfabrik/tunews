@@ -3,7 +3,7 @@ Simple REST API
 """
 from django.http import HttpResponse
 from django.core import serializers
-
+import json
 from .models import NewsLanguage, NewsCategory, NewsItem
 
 
@@ -24,8 +24,10 @@ def categories(request):  # pylint: disable=W0613
     """
     # pylint: disable=E1101
     news_categories = NewsCategory.objects.all()
-    categories_list = serializers.serialize('json', news_categories)
-    return HttpResponse(categories_list, content_type="application/json")
+    result = []
+    for category in news_categories:
+        result.append({'id': category.id, 'name': category.name})
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 def languages(request):  # pylint: disable=W0613
