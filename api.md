@@ -1,12 +1,10 @@
-# TüNews API
-
-## Endpoints
-### Languages
-#### Method
+# TüNews API Endpoints
+## Languages
+### Method
 GET
-#### URL
+### URL
 https://tunews.integreat-app.de/v1/news/languages
-#### Response
+### Response
 ```
 [{
     code: string,
@@ -14,36 +12,38 @@ https://tunews.integreat-app.de/v1/news/languages
     direction: "rtl" | "ltr"
 }]
 ```
+### Notes
+- direction not yet available
 
-### Categories
-#### Method
+## Tags
+### Method
 GET
-#### URL
+### URL
   https://tunews.integreat-app.de/v1/news/tags
-#### Response
+### Response
 ```
 [{
     id: integer,
     name: string
 }]
 ```
-#### To discuss
-- `code` instead of `id`, probably not available
-- Name without the leading number, e.g. `Landkreis Tübingen und Europa` intead of `0 Landkreis Tübingen und Europa`
+### Notes
+- Maybe we can get translations at some point.
+- Discuss removing the number.
 
-### News
-#### Method
+## News
+### Method
 GET
-#### URL
+### URL
 https://tunews.integreat-app.de/v1/news/{languageCode}?page=N&count=M
-#### Query parameters
-- Filter:
+### Query parameters
+- Filter: (not yet supported)
     - `tag`: tag id
-- Search: `search`: Search query
+- Search: (not yet supported)
 - Pagination:
     - `count`: Number of items to return
     - `page`: Page of items to retun, e.g. `3` -> Items 20 - 29 should be returned
-#### Response
+### Response
 ```
 [{
     id: integer,
@@ -52,18 +52,15 @@ https://tunews.integreat-app.de/v1/news/{languageCode}?page=N&count=M
     date: string
 }]
 ```
-#### To discuss
-- `slug` instead of `id`, probably not available
-- `excerpt`: How many characters? Cut on whitespaces/points
-- `languageCode`: Language code as query parameter instead of url part
+### Notes
+- As excerpt, use first N characters of text.
 
-
-### Single news
-#### Method
+## Single news
+### Method
 GET
-#### URL
+### URL
 https://tunews.integreat-app.de/v1/news/{id}
-#### Response
+### Response
 ```
 {
     id: string,
@@ -74,7 +71,5 @@ https://tunews.integreat-app.de/v1/news/{id}
     enewsno: string
 }
 ```
-#### To discuss
-- Same as above
-- `content`: Trailing date: Will be removed.
-
+### Notes
+- Show enewsno in footer
