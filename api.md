@@ -5,11 +5,11 @@ GET
 ### URL
 https://tunews.integreat-app.de/v1/news/languages
 ### Response
-```
+```json
 [{
-    code: string,
-    name: string,
-    direction: "rtl" | "ltr"
+    "code": "string",
+    "name": "string",
+    "direction": "rtl | ltr"
 }]
 ```
 ### Notes
@@ -21,10 +21,10 @@ GET
 ### URL
   https://tunews.integreat-app.de/v1/news/tags
 ### Response
-```
+```json
 [{
-    id: integer,
-    name: string
+    "id": "integer",
+    "name": "string"
 }]
 ```
 ### Notes
@@ -39,17 +39,18 @@ https://tunews.integreat-app.de/v1/news/{languageCode}?page=N&count=M
 ### Query parameters
 - Filter: (not yet supported)
     - `tag`: tag id
-- Search: (not yet supported)
+- Search:
+    - `search`: WORD to find in title or content, e.g `Integreat` -> items with Integreat in title or content should be returned 
 - Pagination:
     - `count`: Number of items to return
     - `page`: Page of items to retun, e.g. `3` -> Items 20 - 29 should be returned
 ### Response
-```
+```json
 [{
-    id: integer,
-    title: string,
-    tags: [Category],
-    date: string
+    "id": "integer",
+    "title": "string",
+    "tags": ["Category"],
+    "date": "string"
 }]
 ```
 ### Notes
@@ -61,14 +62,14 @@ GET
 ### URL
 https://tunews.integreat-app.de/v1/news/{id}
 ### Response
-```
+```json
 {
-    id: string,
-    title: string,
-    tags: [tags],
-    date: string,
-    content: string
-    enewsno: string
+    "id": "string",
+    "title": "string",
+    "tags": ["tags"],
+    "date": "string",
+    "content": "string",
+    "enewsno": "string"
 }
 ```
 ### Notes
