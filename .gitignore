@@ -2,3 +2,4 @@
 __pycache__
 integreat_tunews.egg-info
 db.sqlite3
+.vscode/
