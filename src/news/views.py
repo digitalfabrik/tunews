@@ -1,9 +1,8 @@
 """
 Simple REST API
 """
-from django.http import HttpResponse
-from django.core import serializers
 import json
+from django.http import HttpResponse
 from .models import NewsLanguage, NewsCategory, NewsItem
 
 
@@ -13,7 +12,8 @@ def index(request, language_code):  # pylint: disable=W0613
     """
     # pylint: disable=E1101
 
-    posts = (NewsItem.objects.filter(pub_date__isnull=False, language__code__contains=language_code).
+    posts = (NewsItem.objects.filter(pub_date__isnull=False,
+                                     language__code__contains=language_code).
              order_by('-pub_date'))
     result = []
     if 'page' in request.GET and 'count' in request.GET:
@@ -23,11 +23,17 @@ def index(request, language_code):  # pylint: disable=W0613
         end = (count * page)
         posts = posts[start:end]
     for item in posts:
-        result.append({'id': item.id, 'title': item.title, 'tags': [item.name for item in item.newscategory.all()], 'date': str(item.pub_date)})
+        result.append({'id': item.id, 'title': item.title,
+                       'tags': [item.name for item in item.newscategory.all()],
+                       'date': str(item.pub_date)})
     result_json = json.dumps(result)
     return HttpResponse(result_json, content_type="application/json")
 
-def singlenews(request, news_id):
+
+def singlenews(request, news_id):  # pylint: disable=W0613
+    """
+    Return a single news item
+    """
     item = NewsItem.objects.filter(id=news_id)[0]
     result = {
         'id': item.id,
@@ -38,6 +44,7 @@ def singlenews(request, news_id):
         'enewsno': item.enewsno,
     }
     return HttpResponse(json.dumps(result), content_type="application/json")
+
 
 def categories(request):  # pylint: disable=W0613
     """
