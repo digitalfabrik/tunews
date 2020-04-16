@@ -2,7 +2,7 @@
 
 TüNews International data back end for Integreat.
 
-These apps offer a user interface to create, edit or delete messages (news), which can be retrieved via an simple [API](api.md).
+These apps offer a user interface to create, edit or delete messages (news), which can be retrieved via an simple [API](doc/api.md).
 
 ## Dependencies
 
@@ -43,7 +43,7 @@ There you are able to create **groups** or **users** and gave them required perm
 
 You can also add **News**, **News-Categories** and **Languages**.
 
-Over the [API](api.md) you can access the stored data.
+Over the [API](doc/api.md) you can access the stored data.
 
 ## General
 
