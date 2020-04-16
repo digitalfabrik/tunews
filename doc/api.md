@@ -50,6 +50,7 @@ https://tunews.integreat-app.de/v1/news/{languageCode}?page=N&count=M
     "id": "integer",
     "title": "string",
     "tags": ["Category"],
+    "content": "string",
     "date": "string"
 }]
 ```
