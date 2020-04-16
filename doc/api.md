@@ -37,10 +37,10 @@ GET
 ### URL
 https://tunews.integreat-app.de/v1/news/{languageCode}?page=N&count=M
 ### Query parameters
-- Filter: (not yet supported)
+- Filter-tag: (not yet supported)
     - `tag`: tag id
-- Search:
-    - `search`: WORD to find in title or content, e.g `Integreat` -> items with Integreat in title or content should be returned 
+- Filter:
+    - `filter`: WORD to find in title or content, e.g `Integreat` -> items with Integreat in title or content should be returned 
 - Pagination:
     - `count`: Number of items to return
     - `page`: Page of items to retun, e.g. `3` -> Items 20 - 29 should be returned

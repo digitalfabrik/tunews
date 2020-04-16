@@ -16,14 +16,8 @@ def index(request, language_code):  # pylint: disable=W0613
     filter = ""
     if 'filter' in request.GET:
         filter = str(request.GET['filter'])
-    if filter == "":
-        posts = (NewsItem.objects.filter(pub_date__isnull=False, language__code__contains=language_code).
-             order_by('-pub_date'))
-    else:
-         posts = (NewsItem.objects.filter(
-            Q(pub_date__isnull=False) & Q(language__code__contains=language_code) & 
-            Q(title__contains=filter) | Q(content__contains=filter)).order_by('-pub_date'))
 
+    posts = __getFilteredPosts(filter, language_code)
     result = []
 
     if 'page' in request.GET and 'count' in request.GET:
@@ -32,9 +26,9 @@ def index(request, language_code):  # pylint: disable=W0613
         start = count * (page - 1)
         end = (count * page)
         posts = posts[start:end]
-        for item in posts:
-            result.append({'id': item.id, 'title': item.title, 'tags': [
-                item.name for item in item.newscategory.all()], 'date': str(item.pub_date)})
+
+    for item in posts:
+        result.append(__mapItemToResult(item))
 
     result_json = json.dumps(result)
     return HttpResponse(result_json, content_type="application/json")
@@ -42,14 +36,7 @@ def index(request, language_code):  # pylint: disable=W0613
 
 def singlenews(request, news_id):
     item = NewsItem.objects.filter(id=news_id)[0]
-    result = {
-        'id': item.id,
-        'title': item.title,
-        'tags': [item.name for item in item.newscategory.all()],
-        'date': str(item.pub_date),
-        'content': item.content,
-        'enewsno': item.enewsno,
-    }
+    result = __mapItemToResult(item)
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 
@@ -75,3 +62,25 @@ def languages(request):  # pylint: disable=W0613
     for language in news_languages:
         result.append({'code': language.code, 'name': language.language})
     return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def __getFilteredPosts(filter, language_code):
+    if filter == "":
+        posts = (NewsItem.objects.filter(pub_date__isnull=False, language__code__contains=language_code).
+             order_by('-pub_date'))
+    else:
+         posts = (NewsItem.objects.filter(
+            Q(pub_date__isnull=False) & Q(language__code__contains=language_code) & 
+            Q(title__contains=filter) | Q(content__contains=filter)).order_by('-pub_date'))
+    
+    return posts
+
+def __mapItemToResult(item):
+    return {
+        'id': item.id,
+        'title': item.title,
+        'tags': [item.name for item in item.newscategory.all()],
+        'date': str(item.pub_date),
+        'content': item.content,
+        'enewsno': item.enewsno,
+    }
