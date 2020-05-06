@@ -1,33 +1,32 @@
 """
 Simple REST API
 """
+
 import json
-import requests
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 from .models import NewsLanguage, NewsCategory, NewsItem
-from .tunews_clean import clean_html, get_enewsno
 
-def index(request, language_code):  # pylint: disable=W0613
+
+def index(request, language_code):
     """
     Display News items
     """
-    # pylint: disable=E1101
     filter = ""
-    if 'filter' in request.GET:
-        filter = str(request.GET['filter'])
+    if "filter" in request.GET:
+        filter = str(request.GET["filter"])
 
     posts = __getFilteredPosts(filter, language_code)
     result = []
 
-    if 'page' in request.GET and 'count' in request.GET:
-        page = int(request.GET['page'])
-        count = int(request.GET['count'])
+    if "page" in request.GET and "count" in request.GET:
+        page = int(request.GET["page"])
+        count = int(request.GET["count"])
         start = count * (page - 1)
-        end = (count * page)
+        end = count * page
         posts = posts[start:end]
 
     for item in posts:
@@ -43,47 +42,53 @@ def singlenews(request, news_id):
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 
-def categories(request):  # pylint: disable=W0613
+def categories(request):
     """
     List categories
     """
-    # pylint: disable=E1101
     news_categories = NewsCategory.objects.all()
     result = []
     for category in news_categories:
-        result.append({'id': category.id, 'name': category.name})
+        result.append({"id": category.id, "name": category.name})
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 
-def languages(request):  # pylint: disable=W0613
+def languages(request):
     """
     List languages
     """
-    # pylint: disable=E1101
     news_languages = NewsLanguage.objects.all()
     result = []
     for language in news_languages:
-        result.append({'code': language.code, 'name': language.language})
+        result.append({"code": language.code, "name": language.language})
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 def __getFilteredPosts(filter, language_code):
     if filter == "":
-        posts = (NewsItem.objects.filter(pub_date__isnull=False, language__code__contains=language_code).
-             order_by('-pub_date'))
+        posts = NewsItem.objects.filter(
+            pub_date__isnull=False, language__code__contains=language_code
+        ).order_by("-pub_date")
     else:
-         posts = (NewsItem.objects.filter(
-            Q(pub_date__isnull=False) & Q(language__code__contains=language_code) & 
-            Q(title__contains=filter) | Q(content__contains=filter)).order_by('-pub_date'))
-    
+        posts = NewsItem.objects.filter(
+            Q(pub_date__isnull=False)
+            & Q(language__code__contains=language_code)
+            & Q(title__contains=filter)
+            | Q(content__contains=filter)
+        ).order_by("-pub_date")
+
     return posts
+
 
 def __mapItemToResult(item):
     return {
-        'id': item.id,
-        'title': item.title,
-        'tags': [item.name for item in item.newscategory.all()],
-        'date': str(item.pub_date),
-        'content': item.content,
-        'enewsno': item.enewsno,
+        "id": item.id,
+        "title": item.title,
+        "tags": [item.name for item in item.newscategory.all()],
+        "date": str(
+            item.pub_date
+        ),  # this field should be deleted in summer of 2026, as we want to use the field `display_date` going forward
+        "display_date": str(item.pub_date.isoformat()),
+        "content": item.content,
+        "enewsno": item.enewsno,
     }
