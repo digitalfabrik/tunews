@@ -9,7 +9,7 @@ These apps offer a user interface to create, edit or delete messages (news), whi
 * You can use Ubuntu 18.04
   * Also Windows or [WSL](https://docs.microsoft.com/de-de/windows/wsl/install-win10) or other distributions maybe possible
 * install python3
-    * sudo apt-get install pyhton3
+    * sudo apt-get install python3
     * sudo apt-get install python3-pip
     * if an error occur, maybe run: sudo sh -c 'apt update && apt upgrade'
 * install virtual env for python
