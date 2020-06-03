@@ -3,6 +3,7 @@ Simple REST API
 """
 import json
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 from .models import NewsLanguage, NewsCategory, NewsItem
@@ -35,7 +36,7 @@ def index(request, language_code):  # pylint: disable=W0613
 
 
 def singlenews(request, news_id):
-    item = NewsItem.objects.filter(id=news_id)[0]
+    item = get_object_or_404(NewsItem, id=news_id)
     result = __mapItemToResult(item)
     return HttpResponse(json.dumps(result), content_type="application/json")
 
