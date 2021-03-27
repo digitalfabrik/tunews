@@ -6,5 +6,6 @@ urlpatterns = [
     path('tags', views.categories),
     path('languages', views.languages),
     path('<int:news_id>', views.singlenews, name='singlenews'),
-    path('<str:language_code>', views.index, name='index')
+    path('<str:language_code>', views.index, name='index'),
+    path('import', views.import_news, name='import_news')
 ]

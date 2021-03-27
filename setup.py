@@ -12,6 +12,8 @@ setup(
     scripts=['src/manage.py'],
     install_requires=[
         "django>=2.2",
+        "django-basicauth",
+        "lxml"
     ],
     author="Tuer an Tuer - Digitalfabrik gGmbH",
     author_email="info@integreat-app.de",

@@ -11,6 +11,7 @@ class NewsLanguage(models.Model):
     """
     language = models.CharField("Sprache", max_length=200)
     code = models.CharField("Sprachcode", max_length=5)
+    wpcategory = models.IntegerField("WordPress-Kategorie-ID", null=True, unique=True)
 
     def __str__(self):
         return self.language
