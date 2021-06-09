@@ -16,6 +16,7 @@ class NewsItem(models.Model):
     pub_date = models.DateTimeField('Datum')
     newscategory = models.ManyToManyField(NewsCategory)
     language = models.ForeignKey(NewsLanguage, on_delete=models.CASCADE)
+    wppostid = models.IntegerField("WP Post ID", null=True, unique=True)
 
     def __str__(self):
         return self.language.language + ": " + self.title + " - " + self.enewsno
