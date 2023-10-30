@@ -83,7 +83,7 @@ def __mapItemToResult(item):
         'id': item.id,
         'title': item.title,
         'tags': [item.name for item in item.newscategory.all()],
-        'date': str(item.pub_date),
+        'date': str(item.pub_date.isoformat()),
         'content': item.content,
         'enewsno': item.enewsno,
     }
