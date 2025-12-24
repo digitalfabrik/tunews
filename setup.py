@@ -11,9 +11,10 @@ setup(
     include_package_data=True,
     scripts=['src/manage.py'],
     install_requires=[
-        "django>=2.2",
+        "django",
         "django-basicauth",
-        "lxml"
+        "lxml",
+        "mysqlclient"
     ],
     author="Tuer an Tuer - Digitalfabrik gGmbH",
     author_email="info@integreat-app.de",
