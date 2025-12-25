@@ -14,7 +14,8 @@ setup(
         "django",
         "django-basicauth",
         "lxml",
-        "mysqlclient"
+        "mysqlclient",
+        "requests"
     ],
     author="Tuer an Tuer - Digitalfabrik gGmbH",
     author_email="info@integreat-app.de",
